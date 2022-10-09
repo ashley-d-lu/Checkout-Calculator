@@ -1,14 +1,22 @@
 'use strict';
 
+// DB connection
 const {
     mongoose
 } = require('../db/mongoose');
 mongoose.set('bufferCommands', false);
 
+// Models
 const {
     Province
 } = require('../models/province');
 
+// Mock data - TODO remove
+const {
+    provinces
+} = require('./mockData')
+
+// Router
 const express = require('express');
 const router = express.Router();
 
@@ -32,21 +40,7 @@ const router = express.Router();
  */
 router.get('/province/taxes', (req, res) => {
     // TODO - get from DB
-    // placeholder
-    res.send([
-        new Province({
-            name: 'Ontario',
-            tax: 13
-        }),
-        new Province({
-            name: 'Quebec',
-            tax: 5
-        }),
-        new Province({
-            name: 'Alberta',
-            tax: 5
-        })
-    ])
+    res.send(provinces)
 });
 
 module.exports = router;
