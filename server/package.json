@@ -1,0 +1,19 @@
+{
+  "name": "a2-server",
+  "version": "1.0.0",
+  "description": "Backend for A2",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor.git"
+  },
+  "author": "Ashley Lu, Allen Chazhoor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/issues"
+  },
+  "homepage": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor#readme"
+}
