@@ -4,6 +4,7 @@
   "description": "Backend for A2",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/issues"
   },
-  "homepage": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor#readme"
+  "homepage": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor#readme",
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.6.5",
+    "nodemon": "^2.0.20"
+  }
 }
