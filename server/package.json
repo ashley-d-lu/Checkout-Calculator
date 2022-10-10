@@ -4,6 +4,7 @@
   "description": "Backend for A2",
   "main": "server.js",
   "scripts": {
+    "start:dev": "nodemon server.js",
     "start": "node server.js",
     "test:unit": "jest /test/unit",
     "test": "npm run test:unit"

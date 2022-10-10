@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A2",
   "scripts": {
-    "test:server": "cd server && npm i && npm run test",
+    "build": "cd client && npm i && npm run build && cd ../server && npm i",
+    "start": "cd server && npm start",
+    "test:server": "cd server && npm i && npm test",
     "test": "npm run test:server"
   },
   "repository": {
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/issues"
   },
-  "homepage": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor#readme"
+  "homepage": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor#readme",
+  "engines": {
+    "node": "16.17.1"
+  }
 }
