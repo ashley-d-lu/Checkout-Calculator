@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 const {
     ItemSchema
 } = require('../models/item');
+const {
+    Receipt,
+    ReceiptSchema
+} = require('../models/receipt');
 
 const CartSchema = new Schema({
     items: {
@@ -17,9 +21,9 @@ const CartSchema = new Schema({
         type: String,
         default: 'Ontario'
     },
-    totalPrice: {
-        type: Number,
-        default: 0
+    receipt: {
+        type: ReceiptSchema,
+        default: new Receipt()
     }
 });
 

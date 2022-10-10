@@ -4,19 +4,19 @@ const Schema = mongoose.Schema;
 const ReceiptSchema = new Schema({
     subtotal: {
         type: Number,
-        required: true
+        default: 0
     },
     savings: {
         type: Number,
-        required: true
+        default: 0
     },
     taxDollarAmt: {
         type: Number,
-        required: true
+        default: 0
     },
     total: {
         type: Number,
-        required: true
+        default: 0
     }
 });
 

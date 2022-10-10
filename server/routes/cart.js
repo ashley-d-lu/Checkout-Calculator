@@ -61,7 +61,7 @@ router.get('/cart', (req, res) => {
  * Request params:
  *      None
  * Request body:
- *      Type: Omit<Cart, “totalPrice”>
+ *      Type: Omit<Cart, “receipt”>
  * Response:
  *      - If successful:
  *          - Status: 200
@@ -102,7 +102,7 @@ router.get('/cart/receipt', (req, res) => {
  * Request params:
  *      None
  * Request body:
- *      Type: Omit<Cart, “totalPrice”>
+ *      Type: Omit<Cart, “receipt”>
  * Response:
  *      - If successful:
  *          - Status: 200
