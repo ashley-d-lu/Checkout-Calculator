@@ -1,4 +1,5 @@
 'use strict';
+const ObjectId = require('mongodb').ObjectId;
 
 // DB connection
 const {
@@ -42,7 +43,11 @@ const router = express.Router();
  *          - Body: An error message (Type: string)
  */
 router.get('/cart', async (req, res) => {
-    res.send(new Cart())
+    const cart = await Cart.findOne({})
+
+    cart.receipt = getReceipt(cart, await Province.find({}))
+
+    res.send(cart)
 });
 
 
@@ -52,7 +57,7 @@ router.get('/cart', async (req, res) => {
  * Request params:
  *      None
  * Request body:
- *      Type: Omit<Cart, “receipt”>
+ *      Type: Omit<Cart, "_id" | “receipt”>
  * Response:
  *      - If successful:
  *          - Status: 200
@@ -62,15 +67,7 @@ router.get('/cart', async (req, res) => {
  *          - Body: An error message (Type: string)
  */
 router.get('/cart/receipt', async (req, res) => {
-    const {
-        items,
-        discountPercentage,
-        provinceName
-    } = req.body
-
-    const provinces = await Province.find({})
-
-    res.send(getReceipt(items, discountPercentage, provinceName, provinces))
+    res.send(getReceipt(req.body, await Province.find({})))
 });
 
 
