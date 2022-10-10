@@ -8,23 +8,15 @@ mongoose.set('bufferCommands', false);
 
 // Models
 const {
-    Item
-} = require('../models/item');
-const {
     Cart
 } = require('../models/cart');
 const {
-    Receipt
-} = require('../models/receipt');
-
-// Mock data - TODO remove
-const {
-    provinces
-} = require('./mockData')
+    Province
+} = require('../models/province');
 
 // Helpers
 const {
-    roundDollarAmt
+    getReceipt
 } = require('./common')
 
 // Router
@@ -49,8 +41,7 @@ const router = express.Router();
  *          - Status: 500
  *          - Body: An error message (Type: string)
  */
-router.get('/cart', (req, res) => {
-    // TODO
+router.get('/cart', async (req, res) => {
     res.send(new Cart())
 });
 
@@ -70,29 +61,16 @@ router.get('/cart', (req, res) => {
  *          - Status: 500
  *          - Body: An error message (Type: string)
  */
-router.get('/cart/receipt', (req, res) => {
-    // Calculate subtotal
-    let subtotal = req.body.items.reduce((subtotal, item) => {
-        return subtotal + (item.price * item.quantity)
-    }, 0)
+router.get('/cart/receipt', async (req, res) => {
+    const {
+        items,
+        discountPercentage,
+        provinceName
+    } = req.body
 
-    // Calculate savings
-    const savings = subtotal * (req.body.discountPercentage / 100)
+    const provinces = await Province.find({})
 
-    // Calculate tax
-    const taxPercentage = provinces.find(province => province.name === req.body.provinceName).tax
-    const taxDollarAmt = (subtotal - savings) * (taxPercentage / 100)
-
-    // Calculate total
-    const total = subtotal - savings + taxDollarAmt
-
-    // Send receipt
-    res.send(new Receipt({
-        subtotal: roundDollarAmt(subtotal),
-        savings: roundDollarAmt(savings),
-        taxDollarAmt: roundDollarAmt(taxDollarAmt),
-        total: roundDollarAmt(total)
-    }))
+    res.send(getReceipt(items, discountPercentage, provinceName, provinces))
 });
 
 
