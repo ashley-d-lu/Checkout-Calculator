@@ -1,4 +1,5 @@
 'use strict';
+const ObjectId = require('mongodb').ObjectId;
 
 // DB connection
 const {
@@ -8,23 +9,15 @@ mongoose.set('bufferCommands', false);
 
 // Models
 const {
-    Item
-} = require('../models/item');
-const {
     Cart
 } = require('../models/cart');
 const {
-    Receipt
-} = require('../models/receipt');
-
-// Mock data - TODO remove
-const {
-    provinces
-} = require('./mockData')
+    Province
+} = require('../models/province');
 
 // Helpers
 const {
-    roundDollarAmt
+    getReceipt
 } = require('./common')
 
 // Router
@@ -49,9 +42,12 @@ const router = express.Router();
  *          - Status: 500
  *          - Body: An error message (Type: string)
  */
-router.get('/cart', (req, res) => {
-    // TODO
-    res.send(new Cart())
+router.get('/cart', async (req, res) => {
+    const cart = await Cart.findOne({})
+
+    cart.receipt = getReceipt(cart, await Province.find({}))
+
+    res.send(cart)
 });
 
 
@@ -61,7 +57,7 @@ router.get('/cart', (req, res) => {
  * Request params:
  *      None
  * Request body:
- *      Type: Omit<Cart, “receipt”>
+ *      Type: Omit<Cart, "_id" | "receipt">
  * Response:
  *      - If successful:
  *          - Status: 200
@@ -70,29 +66,8 @@ router.get('/cart', (req, res) => {
  *          - Status: 500
  *          - Body: An error message (Type: string)
  */
-router.get('/cart/receipt', (req, res) => {
-    // Calculate subtotal
-    let subtotal = req.body.items.reduce((subtotal, item) => {
-        return subtotal + (item.price * item.quantity)
-    }, 0)
-
-    // Calculate savings
-    const savings = subtotal * (req.body.discountPercentage / 100)
-
-    // Calculate tax
-    const taxPercentage = provinces.find(province => province.name === req.body.provinceName).tax
-    const taxDollarAmt = (subtotal - savings) * (taxPercentage / 100)
-
-    // Calculate total
-    const total = subtotal - savings + taxDollarAmt
-
-    // Send receipt
-    res.send(new Receipt({
-        subtotal: roundDollarAmt(subtotal),
-        savings: roundDollarAmt(savings),
-        taxDollarAmt: roundDollarAmt(taxDollarAmt),
-        total: roundDollarAmt(total)
-    }))
+router.get('/cart/receipt', async (req, res) => {
+    res.send(getReceipt(req.body, await Province.find({})))
 });
 
 
@@ -102,7 +77,7 @@ router.get('/cart/receipt', (req, res) => {
  * Request params:
  *      None
  * Request body:
- *      Type: Omit<Cart, “receipt”>
+ *      Type: Omit<Cart, "receipt">
  * Response:
  *      - If successful:
  *          - Status: 200
@@ -112,8 +87,21 @@ router.get('/cart/receipt', (req, res) => {
  *          - Body: An error message (Type: string)
  */
 router.put('/cart', (req, res) => {
-    // TODO
-    res.status(200).send()
+    Cart.updateOne({
+        _id: ObjectId(req.body._id)
+    }, {
+        $set: {
+            items: req.body.items,
+            discountPercentage: req.body.discountPercentage,
+            provinceName: req.body.provinceName
+        }
+    }, (err) => {
+        if (!err) {
+            res.status(200).send()
+        } else {
+            res.status(500).send("Internal Server Error");
+        }
+    })
 });
 
 module.exports = router;

@@ -11,10 +11,6 @@ const {
     Province
 } = require('../models/province');
 
-// Helpers
-const {
-    find
-} = require('./common')
 
 // Router
 const express = require('express');
@@ -38,8 +34,8 @@ const router = express.Router();
  *          - Status: 500
  *          - Body: An error message (Type: string)
  */
-router.get('/province/taxes', (req, res) => {
-    find(req, res, Province);
+router.get('/province/taxes', async (req, res) => {
+    res.send(await Province.find({}));
 });
 
 module.exports = router;
