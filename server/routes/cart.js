@@ -57,7 +57,7 @@ router.get('/cart', async (req, res) => {
  * Request params:
  *      None
  * Request body:
- *      Type: Omit<Cart, "_id" | “receipt”>
+ *      Type: Omit<Cart, "_id" | "receipt">
  * Response:
  *      - If successful:
  *          - Status: 200
@@ -77,7 +77,7 @@ router.get('/cart/receipt', async (req, res) => {
  * Request params:
  *      None
  * Request body:
- *      Type: Omit<Cart, “receipt”>
+ *      Type: Omit<Cart, "receipt">
  * Response:
  *      - If successful:
  *          - Status: 200
@@ -87,8 +87,21 @@ router.get('/cart/receipt', async (req, res) => {
  *          - Body: An error message (Type: string)
  */
 router.put('/cart', (req, res) => {
-    // TODO
-    res.status(200).send()
+    Cart.updateOne({
+        _id: ObjectId(req.body._id)
+    }, {
+        $set: {
+            items: req.body.items,
+            discountPercentage: req.body.discountPercentage,
+            provinceName: req.body.provinceName
+        }
+    }, (err) => {
+        if (!err) {
+            res.status(200).send()
+        } else {
+            res.status(500).send("Internal Server Error");
+        }
+    })
 });
 
 module.exports = router;
