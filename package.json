@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/issues"
   },
-  "homepage": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor#readme"
+  "homepage": "https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor#readme",
+  "engines": {
+    "node": "16.17.1"
+  }
 }
