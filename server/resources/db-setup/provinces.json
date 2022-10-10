@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Alberta",
+        "tax": 5
+    },
+    {
+        "name": "British Columbia",
+        "tax": 5
+    },
+    {
+        "name": "Manitoba",
+        "tax": 5
+    },
+    {
+        "name": "Northwest Territories",
+        "tax": 5
+    },
+    {
+        "name": "Nunavut",
+        "tax": 5
+    },
+    {
+        "name": "Quebec",
+        "tax": 5
+    },
+    {
+        "name": "Saskatchewan",
+        "tax": 5
+    },
+    {
+        "name": "Yukon",
+        "tax": 5
+    },
+    {
+        "name": "Ontario",
+        "tax": 13
+    },
+    {
+        "name": "New Brunswick",
+        "tax": 13
+    },
+    {
+        "name": "Newfoundland and Labrador",
+        "tax": 13
+    },
+    {
+        "name": "Nova Scotia",
+        "tax": 13
+    },
+    {
+        "name": "Prince Edward Island",
+        "tax": 13
+    }
+]

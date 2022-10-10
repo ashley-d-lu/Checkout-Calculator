@@ -11,10 +11,10 @@ const {
     Province
 } = require('../models/province');
 
-// Mock data - TODO remove
+// Helpers
 const {
-    provinces
-} = require('./mockData')
+    find
+} = require('./common')
 
 // Router
 const express = require('express');
@@ -39,8 +39,7 @@ const router = express.Router();
  *          - Body: An error message (Type: string)
  */
 router.get('/province/taxes', (req, res) => {
-    // TODO - get from DB
-    res.send(provinces)
+    find(req, res, Province);
 });
 
 module.exports = router;
