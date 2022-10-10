@@ -1,5 +1,5 @@
 /**
- * This module contains common functions, helpers, and middleware
+ * This module contains common utils
  */
 
 'use strict';

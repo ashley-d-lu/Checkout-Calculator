@@ -18,7 +18,7 @@ const {
 // Helpers
 const {
     getReceipt
-} = require('./common')
+} = require('../utils/common')
 
 // Router
 const express = require('express');
