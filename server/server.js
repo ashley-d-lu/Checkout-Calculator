@@ -15,8 +15,8 @@ app.use(bodyParser.json());
 // Use the API routes in our route files
 const cartRoutes = require('./routes/cart');
 const provinceRoutes = require('./routes/province');
-app.use('/', cartRoutes);
-app.use('/', provinceRoutes);
+app.use('/api', cartRoutes);
+app.use('/api', provinceRoutes);
 
 /* Webpage routes */
 // TODO - once UI is setup and we are ready to deploy
