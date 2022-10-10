@@ -14,7 +14,7 @@ const ReceiptSchema = new Schema({
         type: Number,
         default: 0
     },
-    receipt: {
+    total: {
         type: Number,
         default: 0
     }
