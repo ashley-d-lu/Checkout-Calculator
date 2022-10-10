@@ -19,7 +19,15 @@ app.use('/api', cartRoutes);
 app.use('/api', provinceRoutes);
 
 /* Webpage routes */
-// TODO - once UI is setup and we are ready to deploy
+app.use(express.static(__dirname + "/../client/out"));
+// All routes other than above will go to index.html
+app.get("*", (req, res) => {
+    console.log(req.url);
+    // Send index.html
+    res.sendFile("client/out/index.html", {
+        root: "../"
+    });
+});
 
 // Listen on port
 const port = process.env.PORT || 5000;

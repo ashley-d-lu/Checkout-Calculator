@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A2",
   "scripts": {
-    "test:server": "cd server && npm i && npm run test",
+    "build": "cd client && npm i && npm run build && cd ../server && npm i",
+    "start": "cd server && npm start",
+    "test:server": "cd server && npm i && npm test",
     "test": "npm run test:server"
   },
   "repository": {
