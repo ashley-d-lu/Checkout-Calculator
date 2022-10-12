@@ -24,7 +24,7 @@ export default function CheckoutCalculator() {
   //helper function add a specific item to the cart
   const addItemToCart=(newCart,item)=>{
     let inCart = false
-    newCart.items?.map(i=>{
+    newCart.items?.forEach(i=>{
         if(i.name==item.name){
             i.quantity+=item.quantity
             inCart=true
@@ -40,7 +40,7 @@ export default function CheckoutCalculator() {
   //add items from menu to cart, clear menu quantities and update cart
   const onMenuAdd=()=>{
     let newCart = {...cartState}
-    items.filter(item=>item.quantity>0)?.map(item=>{
+    items.filter(item=>item.quantity>0)?.forEach(item=>{
         addItemToCart(newCart, item)
         item.quantity=0
     })
@@ -52,7 +52,7 @@ export default function CheckoutCalculator() {
   
   //reset cart values
   const onClearCart=()=>{
-    document.getElementById("provinceSelect").value="Ontario"
+    document.getElementById("provinceSelect").value="Ontario (13% tax)"
     Array.from(document.getElementsByClassName("discount")).forEach(
         quantity => (quantity.value = 0)
       )
@@ -60,14 +60,9 @@ export default function CheckoutCalculator() {
   }
 
   //helper function to find tax percentage given province
-  const getTaxPercentage=(province)=>{
-    let tax = 0
-    provinces.map(p=>{
-        if(p.name==province){
-            tax = p.tax/100
-        }
-    })
-    return tax
+  const getTaxPercentage=()=>{
+    const matchingProvince = provinces.find(p => p.name == document.getElementById("provinceSelect").value.split(" ")[0])
+    return matchingProvince ? matchingProvince.tax / 100 : 0
   }
 
   //checkout cart and obtain receipt
@@ -75,14 +70,9 @@ export default function CheckoutCalculator() {
     checkout({
         subtotal:cartState.totalPrice,
         savings:(cartState.discountPercentage/100)*cartState.totalPrice,
-        tax:getTaxPercentage(document.getElementById("provinceSelect").value)*cartState.totalPrice,
-        total: checkoutState.subtotal-((cartState.discountPercentage/100)*cartState.totalPrice)+(getTaxPercentage()*cartState.totalPrice)
+        tax:getTaxPercentage()*cartState.totalPrice,
+        total: cartState.totalPrice-((cartState.discountPercentage/100)*cartState.totalPrice)+(getTaxPercentage()*cartState.totalPrice)
         })
-    updateCart({items:[],
-        discountPercentage:0,
-        provinceName: "Ontario",
-        totalPrice: 0}
-        )
   }
   
   //reset receipt
@@ -98,7 +88,7 @@ export default function CheckoutCalculator() {
   //obtain province list for dropdown
   const ProvinceList=(
     provinces.map((p, index)=>{
-        return <option key={index}>{p.name}</option>
+        return <option key={index}>{p.name} ({p.tax}% tax)</option>
     })
   )
 
@@ -209,7 +199,8 @@ export default function CheckoutCalculator() {
     )
     
     //html for receipt
-    const Receipt = (
+    function Receipt() {
+        return checkoutState.total>0 ? (
         <div className="block">
             <h2>Receipt</h2>
             <table>
@@ -237,12 +228,13 @@ export default function CheckoutCalculator() {
             </table>
         </div>
 
-    )
+    ):null
+}
 
  //main 
   return <div className="checkout-calculator" style={{display:"flex"}}> 
         {Menu}
         {Cart}
-        {Receipt}
+        {Receipt()}
     </div>
 }
