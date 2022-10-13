@@ -1,25 +1,46 @@
-import { menu, provinces } from "../mock-data";
+import { menu } from "../mock-data";
 import React from 'react';
+import { throws } from "assert";
 
 export default function CheckoutCalculator() {
-//import mock date for menu items
+const dev = process.env.NODE_ENV !== 'production';
+const port = process.env.PORT || 5000;
+const api = dev ? 'http://localhost:' + port + "/api" : 'https://csc301-a2-pair-36.herokuapp.com';
+  
+  //import mock date for menu items
   const items = menu
-
+  //provinces will store the province items
+  const [provinces, setProvinces] = React.useState([])
   //currentCart will store the state of the cart
-  const [cartState, updateCart] = React.useState(
-    {items:[],
-    discountPercentage:0,
-    provinceName: "Ontario",
-    totalPrice: 0}
-    )
-
+  const [cartState, updateCart] = React.useState({})
   //checkoutCart will store the state of the receipt
   const [checkoutState, checkout] = React.useState({
     subtotal:0,
     savings:0,
-    tax:0,
+    taxDollarAmt:0,
     total:0
     })
+
+  React.useEffect(() => {
+    async function fetchData() {
+    const provRes = await fetch(api+"/province/taxes").then((response) => 
+        response.status==200 ? response.json() : Promise.reject(response)
+    ).catch((error) => {
+        console.log(error)
+        throws (new Error("Error fetching provinces"))
+    })
+    setProvinces(provRes);
+    const cartRes = await fetch(api+"/cart").then((response) => 
+        response.status==200 ? response.json() : Promise.reject(response)
+    ).catch((error) => {
+        console.log(error)
+        throws (new Error("Error fetching cart"))
+    })
+    updateCart(cartRes);
+    }
+    fetchData();
+  },[])
+
 
   //helper function add a specific item to the cart
   const addItemToCart=(newCart,item)=>{
@@ -28,12 +49,10 @@ export default function CheckoutCalculator() {
         if(i.name==item.name){
             i.quantity+=item.quantity
             inCart=true
-            newCart.totalPrice+=item.price*item.quantity
         }
     })
     if(!inCart){
         newCart.items.push({name:item.name, price: item.price, quantity: item.quantity})
-        newCart.totalPrice+=item.price*item.quantity
     }
   }
 
@@ -52,50 +71,69 @@ export default function CheckoutCalculator() {
   
   //reset cart values
   const onClearCart=()=>{
-    document.getElementById("provinceSelect").value="Ontario (13% tax)"
     Array.from(document.getElementsByClassName("discount")).forEach(
         quantity => (quantity.value = 0)
       )
-    updateCart({items:[], discountPercentage:0, provinceName: "Ontario", totalPrice: 0})
-  }
-
-  //helper function to find tax percentage given province
-  const getTaxPercentage=()=>{
-    const matchingProvince = provinces.find(p => p.name == document.getElementById("provinceSelect").value.split(" ")[0])
-    return matchingProvince ? matchingProvince.tax / 100 : 0
+    updateCart({items:[], discountPercentage:0, provinceName: "Ontario", _id: cartState._id, receipt:{
+        subtotal:0,
+        savings:0,
+        taxDollarAmt:0,
+        total:0,
+        _id:cartState.receipt._id
+        }})
   }
 
   //checkout cart and obtain receipt
-  const onCheckout=()=>{
-    checkout({
-        subtotal:cartState.totalPrice,
-        savings:(cartState.discountPercentage/100)*cartState.totalPrice,
-        tax:getTaxPercentage()*cartState.totalPrice,
-        total: cartState.totalPrice-((cartState.discountPercentage/100)*cartState.totalPrice)+(getTaxPercentage()*cartState.totalPrice)
-        })
+  async function onCheckout(){
+    cartState.provinceName = document.getElementById("provinceSelect").value
+    cartState.discountPercentage = parseInt(document.getElementById("discount").value)
+  }
+
+  async function saveCart(){
+    cartState.provinceName = document.getElementById("provinceSelect").value
+    await fetch(api+"/cart",{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cartState)
+    }).catch((error) => {
+        throws (new Error("Error saving cart"))
+    })
   }
   
   //reset receipt
-  const onClearReceipt=()=>{
+  async function onClearReceipt(){
     checkout({
+        _id:cartState.receipt._id,
         subtotal:0,
         savings:0,
-        tax:0,
+        taxDollarAmt:0,
         total:0
         })
   }
 
   //obtain province list for dropdown
   const ProvinceList=(
-    provinces.map((p, index)=>{
-        return <option key={index}>{p.name} ({p.tax}% tax)</option>
-    })
+    <div>
+        <h4>Province</h4>
+            <select
+            id="provinceSelect"
+            >
+                {
+                provinces.map((p, index)=>
+                p.name == cartState.provinceName ?
+                <option key={index} value={p.name} selected>{p.name}, {p.tax}% tax</option>
+                : <option key={index} value={p.name}>{p.name}, {p.tax}% tax</option>)
+                }
+            </select>
+    </div>
   )
 
   //html for menu items
   const MenuItems = (
-    items.map((item, index) => {
-        return <tr key={index}>
+    items.map((item, index) => 
+            <tr key={index}>
             <td>{item.name}</td>
             <td>{item.price}</td>
             <td>
@@ -110,7 +148,7 @@ export default function CheckoutCalculator() {
                 </input>
             </td>
         </tr>
-    })
+    )
   )
     //html for menu table
     const Menu = (
@@ -140,12 +178,11 @@ export default function CheckoutCalculator() {
 
     //html for cart item summary
     const CartItems = (
-        cartState.items?.map((item, index) => {
-            return <tr key={index}>
+        cartState.items?.map((item, index) => 
+                <tr key={index}>
                 <td>{item.name}</td>
                 <td>{item.quantity}</td>
                 </tr>
-            }
         )
     )
 
@@ -176,10 +213,11 @@ export default function CheckoutCalculator() {
             </table>
             <div>
                 <h4>Discount Percentage</h4>
-                <input 
+                <input
+                id="discount"
                 className="discount"
                 type="number"
-                defaultValue="0"
+                defaultValue={cartState.discountPercentage}
                 style={{width:5+'em'}}
                 max="100"
                 min="0"
@@ -187,13 +225,11 @@ export default function CheckoutCalculator() {
                 }>
                 </input>
             </div>
+            {ProvinceList}
             <div>
-                <h4>Province</h4>
-                <select
-                id="provinceSelect"
-                >
-                    {ProvinceList}
-                </select>
+                <button onClick={saveCart}>
+                    Save Cart
+                </button>
             </div>
         </div>
     )
@@ -212,7 +248,7 @@ export default function CheckoutCalculator() {
                         <td>Savings: {checkoutState.savings}</td>
                     </tr>
                     <tr>
-                        <td>Tax: {checkoutState.tax}</td>
+                        <td>Tax: {checkoutState.taxDollarAmt}</td>
                     </tr>
                     <tr>
                         <td>Total: {checkoutState.total}</td>

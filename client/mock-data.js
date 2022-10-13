@@ -15,18 +15,3 @@ export const menu = [
         quantity:0
     }
   ]
-  export const provinces = [
-    {
-        name: 'Ontario',
-        tax: 13
-    },
-    {
-        name: 'Quebec',
-        tax: 5
-    },
-    {
-        name: 'Alberta',
-        tax: 5
-    },
-  ]
-  
