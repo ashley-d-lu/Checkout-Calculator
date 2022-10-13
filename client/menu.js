@@ -1,3 +1,6 @@
+/**
+ * Menu item options used by the client
+ */
 export const menu = [
     {
         name:"apple",
