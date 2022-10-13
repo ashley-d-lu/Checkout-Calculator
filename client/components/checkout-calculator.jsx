@@ -7,7 +7,7 @@ export default function CheckoutCalculator() {
   // Obtain API URL
   const dev = process.env.NODE_ENV !== 'production';
   const port = process.env.PORT || 5000;
-  const api = dev ? 'http://localhost:' + port + "/api" : 'https://csc301-a2-pair-36.herokuapp.com';
+  const api = dev ? 'http://localhost:' + port + "/api" : 'https://csc301-a2-pair-36.herokuapp.com/api';
   
   // Import Menu Items
   const items = menu
