@@ -52,7 +52,7 @@ router.get('/cart', async (req, res) => {
 
 
 /**
- * GET route to get the receipt for the given cart
+ * POST route to get the receipt for the given cart
  * 
  * Request params:
  *      None
@@ -66,7 +66,7 @@ router.get('/cart', async (req, res) => {
  *          - Status: 500
  *          - Body: An error message (Type: string)
  */
-router.get('/cart/receipt', async (req, res) => {
+router.post('/cart/receipt', async (req, res) => {
     res.send(getReceipt(req.body, await Province.find({})))
 });
 
