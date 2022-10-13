@@ -1,3 +1,6 @@
+/**
+ * Menu item options used by the client
+ */
 export const menu = [
     {
         name:"apple",
@@ -15,18 +18,3 @@ export const menu = [
         quantity:0
     }
   ]
-  export const provinces = [
-    {
-        name: 'Ontario',
-        tax: 13
-    },
-    {
-        name: 'Quebec',
-        tax: 5
-    },
-    {
-        name: 'Alberta',
-        tax: 5
-    },
-  ]
-  
