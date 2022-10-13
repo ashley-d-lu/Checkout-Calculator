@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  run-tests:
 
     runs-on: ubuntu-latest
     timeout-minutes: 2
@@ -28,5 +28,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Install node dependencies, run build, and run tests
-      run: npm test # Our test script includes the installation and build
+    - name: Clean install node dependencies in root
+      run: npm ci
+    - name: Install node dependencies in server and client. Build project. Run tests
+      run: npm test # Our test script includes the installations and builds for the server and client
