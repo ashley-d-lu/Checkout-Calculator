@@ -3,9 +3,11 @@ import React from 'react';
 import { throws } from "assert";
 
 export default function CheckoutCalculator() {
-const dev = process.env.NODE_ENV !== 'production';
-const port = process.env.PORT || 5000;
-const api = dev ? 'http://localhost:' + port + "/api" : 'https://csc301-a2-pair-36.herokuapp.com';
+
+  //obtain api url
+  const dev = process.env.NODE_ENV !== 'production';
+  const port = process.env.PORT || 5000;
+  const api = dev ? 'http://localhost:' + port + "/api" : 'https://csc301-a2-pair-36.herokuapp.com';
   
   //import mock date for menu items
   const items = menu
@@ -22,6 +24,7 @@ const api = dev ? 'http://localhost:' + port + "/api" : 'https://csc301-a2-pair-
     })
 
   React.useEffect(() => {
+    //retrieves saved and backend data from the api upon app start
     async function fetchData() {
     const provRes = await fetch(api+"/province/taxes").then((response) => 
         response.status==200 ? response.json() : Promise.reject(response)
@@ -87,8 +90,22 @@ const api = dev ? 'http://localhost:' + port + "/api" : 'https://csc301-a2-pair-
   async function onCheckout(){
     cartState.provinceName = document.getElementById("provinceSelect").value
     cartState.discountPercentage = parseInt(document.getElementById("discount").value)
+    const resCart = await fetch(api+"/cart/receipt", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cartState)
+    }).then((response) =>
+        response.status==200 ? response.json() : Promise.reject(response)
+    ).catch((error) => {
+        console.log(error)
+        throws (new Error("Error fetching receipt"))
+    })
+    checkout(resCart)
   }
 
+  //save cart to backend
   async function saveCart(){
     cartState.provinceName = document.getElementById("provinceSelect").value
     await fetch(api+"/cart",{
