@@ -282,7 +282,7 @@ export default function CheckoutCalculator() {
                 </tr>
                 </tbody>
             </table>
-                <h4 className="discount-title">Discount Percentage</h4>
+                <h4 className="discount-title">Discount</h4>
                 <div>
                     <input
                     id="discount"
