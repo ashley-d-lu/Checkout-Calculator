@@ -173,7 +173,7 @@ export default function CheckoutCalculator() {
   // Obtain province list for dropdown
   const ProvinceList=(
     <div>
-    <h4>Province</h4>
+    <h4 className="province-title">Province</h4>
         <select
             className="form-select form-select-sm"
             id="provinceSelect"
@@ -193,7 +193,7 @@ export default function CheckoutCalculator() {
     items.map((item, index) => 
             <tr key={index}>
             <td>{item.name}</td>
-            <td>{item.price}</td>
+            <td>${item.price}</td>
             <td>
                 <input 
                 className="quantity form-control-sm"
@@ -282,7 +282,7 @@ export default function CheckoutCalculator() {
                 </tr>
                 </tbody>
             </table>
-                <h4>Discount Percentage</h4>
+                <h4 className="discount-title">Discount Percentage</h4>
                 <div>
                     <input
                     id="discount"
@@ -298,6 +298,7 @@ export default function CheckoutCalculator() {
                     onChange={(event) => {cartState.discountPercentage = parseInt(event.target.value)}
                     }>
                     </input>
+                &nbsp;%
                 </div>
                 {ProvinceList}
                 <div>
@@ -318,16 +319,16 @@ export default function CheckoutCalculator() {
             <table>
                 <tbody>
                     <tr>
-                        <td>Subtotal: {checkoutState.subtotal}</td>
+                        <td>Subtotal: ${checkoutState.subtotal}</td>
                     </tr>
                     <tr>
-                        <td>Savings: {checkoutState.savings}</td>
+                        <td>Savings: ${checkoutState.savings}</td>
                     </tr>
                     <tr>
-                        <td>Tax: {checkoutState.taxDollarAmt}</td>
+                        <td>Tax: ${checkoutState.taxDollarAmt}</td>
                     </tr>
                     <tr>
-                        <td>Total: {checkoutState.total}</td>
+                        <td>Total: ${checkoutState.total}</td>
                     </tr>
                     <tr>
                         <td>
