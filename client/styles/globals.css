@@ -11,17 +11,13 @@
     padding: 10px;
   }
 
-h2,h4{
+h2, h4, tr{
     text-align: center;
   }
 
 th {
-  text-align: center;
-    width: 5.5em;
-  }
-
-tr {
     text-align: center;
+    width: 5.5em;
   }
 
 div{
