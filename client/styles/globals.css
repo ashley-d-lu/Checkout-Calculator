@@ -1,3 +1,40 @@
+.menu{
+  background-color: gainsboro;
+  border-radius: 25px;
+  padding: 10px;
+}
+
 .block{
-    margin-left: 5%;
+    margin-left: 2%;
+    background-color: gainsboro;
+    border-radius: 25px;
+    padding: 10px;
   }
+
+h2,h4{
+    text-align: center;
+  }
+
+th {
+  text-align: center;
+    width: 5.5em;
+  }
+
+tr {
+    text-align: center;
+  }
+
+div{
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+  }
+
+div>button,td>button{
+    margin-top: 10px;
+  }
+  
+table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }  

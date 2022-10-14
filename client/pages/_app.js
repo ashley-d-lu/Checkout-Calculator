@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const testApiCall = async () => {
   const dev = process.env.NODE_ENV !== 'production';
