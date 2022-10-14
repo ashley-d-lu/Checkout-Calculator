@@ -89,7 +89,7 @@ export default function CheckoutCalculator() {
     })
     updateCart(newCart)
 
-    Array.from(document.getElementsByClassName("quantity")).forEach(
+    Array.from(document.getElementsByClassName("quantity form-control-sm")).forEach(
         quantity => (quantity.value = 0)
       )
   }
@@ -98,7 +98,7 @@ export default function CheckoutCalculator() {
    * clear cart, discount, and province
    */
   const onClearCart=()=>{
-    Array.from(document.getElementsByClassName("discount")).forEach(
+    Array.from(document.getElementsByClassName("discount form-control-sm")).forEach(
         quantity => (quantity.value = 0)
       )
 
@@ -173,8 +173,9 @@ export default function CheckoutCalculator() {
   // Obtain province list for dropdown
   const ProvinceList=(
     <div>
-        <h4>Province</h4>
-            <select
+    <h4 className="province-title">Province</h4>
+        <select
+            className="form-select form-select-sm"
             id="provinceSelect"
             >
                 {
@@ -192,14 +193,17 @@ export default function CheckoutCalculator() {
     items.map((item, index) => 
             <tr key={index}>
             <td>{item.name}</td>
-            <td>{item.price}</td>
+            <td>${item.price}</td>
             <td>
                 <input 
-                className="quantity"
+                className="quantity form-control-sm"
                 type="number"
                 defaultValue="0"
                 style={{width:5+'em'}}
                 min="0"
+                onKeyDown={(event)=>{if(event.key==='.'){
+                    event.preventDefault()
+                }}}
                 onChange={(event) => {item.quantity = parseInt(event.target.value)}}
                 >
                 </input>
@@ -209,7 +213,7 @@ export default function CheckoutCalculator() {
   )
     // Display Menu
     const Menu = (
-        <div>
+        <div className="menu">
             <h2>Menu</h2>
             <table>
                 <tbody>
@@ -218,12 +222,18 @@ export default function CheckoutCalculator() {
                         <th>Price</th>
                         <th>Quantity</th>
                     </tr>
+                </tbody>
+                <tbody>
                         {MenuItems}
+                </tbody>
+                <tbody>
                     <tr>
                         <td></td>
                         <td></td>
                         <td>        
-                            <button onClick={onMenuAdd}>
+                            <button 
+                            className="btn btn-primary btn-sm"
+                            onClick={onMenuAdd}>
                                 Add Items
                             </button>
                         </td>
@@ -247,7 +257,7 @@ export default function CheckoutCalculator() {
     const Cart = (
         <div className="block">
         <h2>Cart</h2>
-            <table>
+            <table className="center">
                 <tbody>
                     <tr>
                         <th>Name</th>
@@ -256,39 +266,49 @@ export default function CheckoutCalculator() {
                     {CartItems}
                 <tr>
                     <td>
-                        <button onClick={onClearCart}>
+                        <button 
+                        className="btn btn-danger btn-sm"
+                        onClick={onClearCart}>
                             Clear Cart
                         </button>
                     </td>
                     <td>                        
-                        <button onClick={onCheckout}>
+                        <button 
+                        className="btn btn-success btn-sm"
+                        onClick={onCheckout}>
                             Checkout
                         </button>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <div>
-                <h4>Discount Percentage</h4>
-                <input
-                id="discount"
-                className="discount"
-                type="number"
-                defaultValue={cartState.discountPercentage}
-                style={{width:5+'em'}}
-                max="100"
-                min="0"
-                onChange={(event) => {cartState.discountPercentage = parseInt(event.target.value)}
-                }>
-                </input>
-            </div>
-            {ProvinceList}
-            <div>
-                <button onClick={saveCart}>
-                    Save Cart
-                </button>
-            </div>
-        </div>
+                <h4 className="discount-title">Discount Percentage</h4>
+                <div>
+                    <input
+                    id="discount"
+                    className="discount form-control-sm"
+                    type="number"
+                    defaultValue={cartState.discountPercentage}
+                    style={{width:5+'em'}}
+                    max="100"
+                    min="0"
+                    onKeyDown={(event)=>{if(event.key==='.'){
+                        event.preventDefault()
+                    }}}
+                    onChange={(event) => {cartState.discountPercentage = parseInt(event.target.value)}
+                    }>
+                    </input>
+                &nbsp;%
+                </div>
+                {ProvinceList}
+                <div>
+                        <button 
+                        className="btn btn-dark btn-sm"
+                        onClick={saveCart}>
+                            Save Cart
+                        </button>
+                </div>
+    </div>
     )
     
     // Display receipt
@@ -299,20 +319,22 @@ export default function CheckoutCalculator() {
             <table>
                 <tbody>
                     <tr>
-                        <td>Subtotal: {checkoutState.subtotal}</td>
+                        <td>Subtotal: ${checkoutState.subtotal}</td>
                     </tr>
                     <tr>
-                        <td>Savings: {checkoutState.savings}</td>
+                        <td>Savings: ${checkoutState.savings}</td>
                     </tr>
                     <tr>
-                        <td>Tax: {checkoutState.taxDollarAmt}</td>
+                        <td>Tax: ${checkoutState.taxDollarAmt}</td>
                     </tr>
                     <tr>
-                        <td>Total: {checkoutState.total}</td>
+                        <td>Total: ${checkoutState.total}</td>
                     </tr>
                     <tr>
                         <td>
-                            <button onClick={onClearReceipt}>
+                            <button 
+                            className="btn btn-danger btn-sm"
+                            onClick={onClearReceipt}>
                             Clear Receipt
                             </button>
                         </td>

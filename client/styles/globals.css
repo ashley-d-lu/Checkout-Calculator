@@ -1,3 +1,48 @@
+.menu{
+  background-color: whitesmoke;
+  border-radius: 25px;
+  padding: 20px;
+}
+
 .block{
-    margin-left: 5%;
+    margin-left: 2%;
+    background-color: whitesmoke;
+    border-radius: 25px;
+    padding: 20px;
   }
+
+  .discount-title{
+    margin-top: 20px;
+  }
+
+  .province-title{
+    margin-top: 15px;
+  }
+  
+main>h1 {
+  margin: 20px 0 20px 0;
+}
+
+h2, h4, tr{
+    text-align: center;
+  }
+
+th {
+    text-align: center;
+    width: 5.5em;
+  }
+
+div {
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+  }
+
+div>button, td>button {
+    margin-top: 20px;
+  }
+  
+table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }  
