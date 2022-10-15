@@ -412,7 +412,7 @@ In our project's root directory, we created a [package.json](https://github.com/
   }
 }
 ```
-In Heroku, we created a `MONGODB_URI` environment variable to holds the connection string of our production database. Our deployed application uses this environment variable to connect to the production database. (See Line 7 of [mongoose.js](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/db/mongoose.js).)
+In Heroku, we created a `MONGODB_URI` environment variable to hold the connection string of our production database. Our deployed application uses this environment variable to connect to the production database. (See Line 7 of [mongoose.js](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/db/mongoose.js).)
 ![image](/resources/heroku-config-vars.png)
 ### Automated Deployment
 
