@@ -307,6 +307,7 @@ Our testing infrastructure contains [6 unit tests for our backend utility functi
 To run these tests locally, run the following commands in your terminal:
 ```
 git clone https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor.git
+cd assignment-2-36-ashley-d-lu-allenchazhoor
 npm test
 ```
 
@@ -358,9 +359,9 @@ When a new unit test file is added to the `server/test/unit` directory, it will 
 
 To add frontend units tests:
 1. We can use [Jest (again) and React Testing Library](https://nextjs.org/docs/testing#jest-and-react-testing-library) to write them.
-2. In [package.json](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/package.json), we can add `&& cd.. && npm run test:client` to the `test` script:
+2. In [package.json](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/package.json), we can add `&& cd .. && npm run test:client` to the `test` script:
     ```
-    "test": "npm run test:server && cd.. && npm run test:client"
+    "test": "npm run test:server && cd .. && npm run test:client"
     ```
     and add a script named `test:client`:
     ```
