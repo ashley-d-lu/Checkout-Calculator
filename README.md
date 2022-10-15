@@ -417,6 +417,5 @@ In Heroku, we created a `MONGODB_URI` environment variable to holds the connecti
 ### Automated Deployment
 
 We are using Heroku to deploy our application automatically on every push to the `main` branch.
-![image](/resources/heroku-auto-deploy.PNG)
 [ [**Video demonstrating automated deployment**](https://youtu.be/GLVTknSSB_0) ]
 
