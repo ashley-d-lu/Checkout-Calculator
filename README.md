@@ -1,4 +1,4 @@
-# Checkout Calculator - A Simple App with CI/CD
+# Checkout Calculator - A Simple Web App with CI/CD
 
 ## Table of Contents
 
@@ -34,105 +34,169 @@ https://csc301-a2-pair-36.herokuapp.com/
   - total = subtotal - savings + tax
 
 ### Backend REST APIs
-
 Our backend exposes several REST APIs that can be tested through Postman.
-
 #### `GET "https://csc301-a2-pair-36.herokuapp.com/api/province/taxes"`
-
 This API retrieves all provinces and their taxes from the `provinces` collection in our MongoDB database.
-
 - Request params: None
-- Response: - If successful: - Status: `200` - Body: All provinces and their taxes (Type: [Province](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/province.js)[]).
-  Example:
-  ```json [ { "_id": "63446d586e5cc94c406810c9", "name": "Alberta", "tax": 5 }, { "_id": "63446d586e5cc94c406810ca", "name": "British Columbia", "tax": 5 }, { "_id": "63446d586e5cc94c406810d5", "name": "Prince Edward Island", "tax": 13 } ] - If unsuccessful: - Status: `500` - Body: An error message (Type: string).
+- Response:
+    - If successful:
+        - Status: `200`
+        - Body: All provinces and their taxes (Type: [Province](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/province.js)[]).
+Example:
+            ```json
+            [
+                {
+                    "_id": "63446d586e5cc94c406810c9",
+                    "name": "Alberta",
+                    "tax": 5
+                },
+                {
+                    "_id": "63446d586e5cc94c406810ca",
+                    "name": "British Columbia",
+                    "tax": 5
+                },
+                {
+                    "_id": "63446d586e5cc94c406810d5",
+                    "name": "Prince Edward Island",
+                    "tax": 13
+                }
+            ]
+    - If unsuccessful:
+        - Status: `500`
+        - Body: An error message (Type: string).
 
 #### `GET "https://csc301-a2-pair-36.herokuapp.com/api/cart"`
-
 This API retrieves the saved cart from the `carts` collection in our MongoDB database.
-
 - Request params: None
-- Response: - If successful: - Status: `200` - Body: The saved cart (Type: [Cart](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/cart.js)).
-  Example:
-  ```json { "receipt": { "subtotal": 29.51, "savings": 2.95, "taxDollarAmt": 3.45, "total": 30.01, "_id": "6349ccd7039261fe32b9b3e6" }, "_id": "63446d626e5cc94c406810d6", "discountPercentage": 10, "provinceName": "Ontario", "items": [ { "name": "Apple 🍎", "price": 1, "quantity": 1, "_id": "6349ccce039261fe32b9b3dc" }, { "name": "Banana 🍌", "price": 3.67, "quantity": 3, "_id": "6349ccce039261fe32b9b3dd" }, { "name": "Pear 🍐", "price": 8.75, "quantity": 2, "_id": "6349ccce039261fe32b9b3de" } ] } - If unsuccessful: - Status: `500` - Body: An error message (Type: string).
+- Response:
+    - If successful:
+        - Status: `200`
+        - Body: The saved cart (Type: [Cart](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/cart.js)).
+Example:
+            ```json
+            {
+                "receipt": {
+                    "subtotal": 29.51,
+                    "savings": 2.95,
+                    "taxDollarAmt": 3.45,
+                    "total": 30.01,
+                    "_id": "6349ccd7039261fe32b9b3e6"
+                },
+                "_id": "63446d626e5cc94c406810d6",
+                "discountPercentage": 10,
+                "provinceName": "Ontario",
+                "items": [
+                    {
+                        "name": "Apple 🍎",
+                        "price": 1,
+                        "quantity": 1,
+                        "_id": "6349ccce039261fe32b9b3dc"
+                    },
+                    {
+                        "name": "Banana 🍌",
+                        "price": 3.67,
+                        "quantity": 3,
+                        "_id": "6349ccce039261fe32b9b3dd"
+                    },
+                    {
+                        "name": "Pear 🍐",
+                        "price": 8.75,
+                        "quantity": 2,
+                        "_id": "6349ccce039261fe32b9b3de"
+                    }
+                ]
+            }
+    - If unsuccessful:
+        - Status: `500`
+        - Body: An error message (Type: string).
 
 #### `POST "https://csc301-a2-pair-36.herokuapp.com/api/cart/receipt"`
-
 This API calculates the receipt for the given cart.
-
 - Request params: None
-- Request Body: - A cart (Type: Omit<[Cart](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/cart.js), "\_id" | "receipt">).
-  Example:
-  ```json
-  {
-    "discountPercentage": 10,
-    "provinceName": "Ontario",
-    "items": [
-      {
-        "name": "Apple 🍎",
-        "price": 1,
-        "quantity": 1,
-        "_id": "6349ccce039261fe32b9b3dc"
-      },
-      {
-        "name": "Banana 🍌",
-        "price": 3.67,
-        "quantity": 3,
-        "_id": "6349ccce039261fe32b9b3dd"
-      },
-      {
-        "name": "Pear 🍐",
-        "price": 8.75,
-        "quantity": 2,
-        "_id": "6349ccce039261fe32b9b3de"
-      }
-    ]
-  }
-  ```
-- Response: - If successful: - Status: `200` - Body: The receipt for the given cart (Type: [Receipt](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/receipt.js)).
-  Example:
-  ```json { "subtotal": 29.51, "savings": 2.95, "taxDollarAmt": 3.45, "total": 30.01, "_id": "6349ccd7039261fe32b9b3e6" } - If unsuccessful: - Status: `500` - Body: An error message (Type: string).
+- Request Body:
+    - A cart (Type: Omit<[Cart](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/cart.js), "_id" | "receipt">).
+Example:
+        ```json
+        {
+            "discountPercentage": 10,
+            "provinceName": "Ontario",
+            "items": [
+                {
+                    "name": "Apple 🍎",
+                    "price": 1,
+                    "quantity": 1,
+                    "_id": "6349ccce039261fe32b9b3dc"
+                },
+                {
+                    "name": "Banana 🍌",
+                    "price": 3.67,
+                    "quantity": 3,
+                    "_id": "6349ccce039261fe32b9b3dd"
+                },
+                {
+                    "name": "Pear 🍐",
+                    "price": 8.75,
+                    "quantity": 2,
+                    "_id": "6349ccce039261fe32b9b3de"
+                }
+            ]
+        }
+- Response:
+    - If successful:
+        - Status: `200`
+        - Body: The receipt for the given cart (Type: [Receipt](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/receipt.js)).
+Example:
+            ```json
+            {
+                "subtotal": 29.51,
+                "savings": 2.95,
+                "taxDollarAmt": 3.45,
+                "total": 30.01,
+                "_id": "6349ccd7039261fe32b9b3e6"
+            }
+    - If unsuccessful:
+        - Status: `500`
+        - Body: An error message (Type: string).
 
 #### `PUT "https://csc301-a2-pair-36.herokuapp.com/api/cart"`
-
 This API saves the given cart in the `carts` collection in our MongoDB database.
-
 - Request params: None
-- Request Body: - A cart (Type: Omit<[Cart](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/cart.js), "receipt">)
-  Example:
-  ```json
-  {
-    "_id": "63446d626e5cc94c406810d6",
-    "discountPercentage": 10,
-    "provinceName": "Ontario",
-    "items": [
-      {
-        "name": "Apple 🍎",
-        "price": 1,
-        "quantity": 1,
-        "_id": "6349ccce039261fe32b9b3dc"
-      },
-      {
-        "name": "Banana 🍌",
-        "price": 3.67,
-        "quantity": 3,
-        "_id": "6349ccce039261fe32b9b3dd"
-      },
-      {
-        "name": "Pear 🍐",
-        "price": 8.75,
-        "quantity": 2,
-        "_id": "6349ccce039261fe32b9b3de"
-      }
-    ]
-  }
-  ```
+- Request Body:
+    - A cart (Type: Omit<[Cart](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/cart.js), "receipt">)
+Example:
+         ```json
+        {
+            "_id": "63446d626e5cc94c406810d6",
+            "discountPercentage": 10,
+            "provinceName": "Ontario",
+            "items": [
+                {
+                    "name": "Apple 🍎",
+                    "price": 1,
+                    "quantity": 1,
+                    "_id": "6349ccce039261fe32b9b3dc"
+                },
+                {
+                    "name": "Banana 🍌",
+                    "price": 3.67,
+                    "quantity": 3,
+                    "_id": "6349ccce039261fe32b9b3dd"
+                },
+                {
+                    "name": "Pear 🍐",
+                    "price": 8.75,
+                    "quantity": 2,
+                    "_id": "6349ccce039261fe32b9b3de"
+                }
+            ]
+        }
 - Response:
-  - If successful:
-    - Status: `200`
-    - Body: None
-  - If unsuccessful:
-    - Status: `500`
-    - Body: An error message (Type: string).
+    - If successful:
+        - Status: `200`
+        - Body: None
+    - If unsuccessful:
+        - Status: `500`
+        - Body: An error message (Type: string).
 
 #### Note on Future Development
 
