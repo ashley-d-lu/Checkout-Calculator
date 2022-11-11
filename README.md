@@ -41,7 +41,7 @@ This API retrieves all provinces and their taxes from the `provinces` collection
 - Response:
     - If successful:
         - Status: `200`
-        - Body: All provinces and their taxes (Type: [Province](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/province.js)[]).
+        - Body: All provinces and their taxes (Type: [Province](/server/models/province.js)[]).
 Example:
             ```json
             [
@@ -71,7 +71,7 @@ This API retrieves the saved cart from the `carts` collection in our MongoDB dat
 - Response:
     - If successful:
         - Status: `200`
-        - Body: The saved cart (Type: [Cart](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/cart.js)).
+        - Body: The saved cart (Type: [Cart](/server/models/cart.js)).
 Example:
             ```json
             {
@@ -114,7 +114,7 @@ Example:
 This API calculates the receipt for the given cart.
 - Request params: None
 - Request Body:
-    - A cart (Type: Omit<[Cart](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/cart.js), "_id" | "receipt">).
+    - A cart (Type: Omit<[Cart](/server/models/cart.js), "_id" | "receipt">).
 Example:
         ```json
         {
@@ -144,7 +144,7 @@ Example:
 - Response:
     - If successful:
         - Status: `200`
-        - Body: The receipt for the given cart (Type: [Receipt](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/receipt.js)).
+        - Body: The receipt for the given cart (Type: [Receipt](/server/models/receipt.js)).
 Example:
             ```json
             {
@@ -162,7 +162,7 @@ Example:
 This API saves the given cart in the `carts` collection in our MongoDB database.
 - Request params: None
 - Request Body:
-    - A cart (Type: Omit<[Cart](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/cart.js), "receipt">)
+    - A cart (Type: Omit<[Cart](/server/models/cart.js), "receipt">)
 Example:
          ```json
         {
@@ -205,11 +205,11 @@ Currently, our menu items, their names, and their prices are hard-coded in the U
 - store the menu items in a `menuItems` collection in our MongoDB database
 - implement a backend API to retrieve the menu items from the DB
 - make the UI call this API to render the menu items
-- rename the current [Item](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/item.js) model to CartItem and make it store just `menuItemId` and `quantity`
+- rename the current [Item](/server/models/item.js) model to CartItem and make it store just `menuItemId` and `quantity`
 
 ## Testing Infrastructure
 
-Our testing infrastructure contains [6 unit tests for our backend utility functions](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/test/unit/utils.common.test.js). These unit tests are implemented using Jest.
+Our testing infrastructure contains [6 unit tests for our backend utility functions](/server/test/unit/utils.common.test.js). These unit tests are implemented using Jest.
 
 - Unit tests 1-3 test the `roundDollarAmt` function with:
   - whole numbers
@@ -225,14 +225,14 @@ Our testing infrastructure contains [6 unit tests for our backend utility functi
 To run these tests locally, run the following commands in your terminal:
 
 ```
-git clone https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor.git
-cd assignment-2-36-ashley-d-lu-allenchazhoor
+git clone https://github.com/ashley-d-lu/Checkout-Calculator.git
+cd Checkout-Calculator
 npm test
 ```
 
 #### Adaptability of our Unit Tests
 
-Our backend unit tests are located in [server/test/unit](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/tree/main/server/test/unit). To keep the unit tests organized when new tests are added for new application functionalities, we follow the given conventions:
+Our backend unit tests are located in [server/test/unit](/server/test/unit). To keep the unit tests organized when new tests are added for new application functionalities, we follow the given conventions:
 
 1. The files in the `server/test/unit` directory follow the naming convention, `<package_name>.<module_name>.test.js`, where `module_name` is the module being tested and `package_name` is the path to the module relative to the `server` directory. (For example, our `utils.common.test.js` file tests the `common.js` module in the `server/utils`.)
 2. Inside each unit test file, we have a test suite for each function that we're testing. (For example, our `utils.common.test.js` file has a suite for `roundDollarAmt` and a suite for `getReceipt`.)
@@ -240,7 +240,7 @@ Our backend unit tests are located in [server/test/unit](https://github.com/csc3
 
 When a new unit test file is added to the `server/test/unit` directory, it will be picked automatically up by the `npm test` script.
 
-1. As defined by [package.json](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/package.json), running `npm test` in the project's root directory runs `npm run test:server`.
+1. As defined by [package.json](/package.json), running `npm test` in the project's root directory runs `npm run test:server`.
    ```json
    {
      "scripts": {
@@ -250,7 +250,7 @@ When a new unit test file is added to the `server/test/unit` directory, it will 
    }
    ```
 2. `npm run test:server` is responsible for running all backend tests. It runs `npm test` in the `server` directory.
-3. As defined by [server/package.json](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/package.json), running `npm test` in the `server` directory runs `npm test:unit`.
+3. As defined by [server/package.json](/server/package.json), running `npm test` in the `server` directory runs `npm test:unit`.
    ```json
    {
      "scripts": {
@@ -264,7 +264,7 @@ When a new unit test file is added to the `server/test/unit` directory, it will 
 To add frontend units tests:
 
 1. We can use [Jest (again) and React Testing Library](https://nextjs.org/docs/testing#jest-and-react-testing-library) to write them.
-2. In [package.json](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/package.json), we can add `&& cd .. && npm run test:client` to the `test` script:
+2. In [package.json](/package.json), we can add `&& cd .. && npm run test:client` to the `test` script:
    ```json
    "test": "npm run test:server && cd .. && npm run test:client"
    ```
@@ -272,7 +272,7 @@ To add frontend units tests:
    ```json
    "test:client": "cd client && npm i && npm test"
    ```
-3. In [client/package.json](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/client/package.json), we can add scripts named `test` and `test:unit` that will run the frontend unit tests (similar to [server/package.json](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/package.json)).
+3. In [client/package.json](/client/package.json), we can add scripts named `test` and `test:unit` that will run the frontend unit tests (similar to [server/package.json](/server/package.json)).
 
 To add backend unit tests that connect to our DB:
 
@@ -299,7 +299,7 @@ To implement these integration and end-to-end tests, we can use [Cypress](https:
 
 ## Automated Testing (CI)
 
-Our project uses a **[GitHub Actions workflow](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/.github/workflows/tests.yml)** to run our tests on:
+Our project uses a **[GitHub Actions workflow](/.github/workflows/tests.yml)** to run our tests on:
 
 - every PR that targets the `main` branch
 - every push to the `main` branch
@@ -314,7 +314,7 @@ We are using **Heroku** to deploy our application and **MongoDB Atlas** to host 
 
 #### MongoDB Atlas Setup
 
-In MongoDB Atlas, we created a cluster that contains our `CSC301A2` database. In the `CSC301A1` database, we created a `carts` collection and a `provinces` collection. We seeded these collections with json data from [db-setup](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/tree/main/server/resources/db-setup).
+In MongoDB Atlas, we created a cluster that contains our `CSC301A2` database. In the `CSC301A1` database, we created a `carts` collection and a `provinces` collection. We seeded these collections with json data from [db-setup](/server/resources/db-setup).
 ![image](/resources/cloud-mongodb-carts.PNG)
 ![image](/resources/cloud-mongodb-provinces.png)
 
@@ -322,7 +322,7 @@ In MongoDB Atlas, we created a cluster that contains our `CSC301A2` database. In
 
 In Heroku, we linked our project's GitHub repo:
 ![image](/resources/heroku-github.PNG)
-In our project's root directory, we created a [package.json](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/package.json) file that specifies the node engine and scripts that Heroku will use to build and start the application:
+In our project's root directory, we created a [package.json](/package.json) file that specifies the node engine and scripts that Heroku will use to build and start the application:
 
 ```json
 {
@@ -336,7 +336,7 @@ In our project's root directory, we created a [package.json](https://github.com/
 }
 ```
 
-In Heroku, we created a `MONGODB_URI` environment variable to hold the connection string of our production database. Our deployed application uses this environment variable to connect to the production database. (See Line 7 of [mongoose.js](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/db/mongoose.js).)
+In Heroku, we created a `MONGODB_URI` environment variable to hold the connection string of our production database. Our deployed application uses this environment variable to connect to the production database. (See Line 7 of [mongoose.js](/server/db/mongoose.js).)
 ![image](/resources/heroku-config-vars.png)
 
 ## Automated Deployment (CD)
