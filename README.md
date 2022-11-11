@@ -12,7 +12,7 @@
 
 ## Report
 
-[Report on Tech Stack Options]()
+[Report on Tech Stack Options](/Report.md)
 
 ## Deployed App
 
@@ -64,29 +64,30 @@ This API calculates the receipt for the given cart.
   Example:
   ```json
   {
-  "discountPercentage": 10,
-  "provinceName": "Ontario",
-  "items": [
-  {
-  "name": "Apple 🍎",
-  "price": 1,
-  "quantity": 1,
-  "_id": "6349ccce039261fe32b9b3dc"
-  },
-  {
-  "name": "Banana 🍌",
-  "price": 3.67,
-  "quantity": 3,
-  "_id": "6349ccce039261fe32b9b3dd"
-  },
-  {
-  "name": "Pear 🍐",
-  "price": 8.75,
-  "quantity": 2,
-  "_id": "6349ccce039261fe32b9b3de"
+    "discountPercentage": 10,
+    "provinceName": "Ontario",
+    "items": [
+      {
+        "name": "Apple 🍎",
+        "price": 1,
+        "quantity": 1,
+        "_id": "6349ccce039261fe32b9b3dc"
+      },
+      {
+        "name": "Banana 🍌",
+        "price": 3.67,
+        "quantity": 3,
+        "_id": "6349ccce039261fe32b9b3dd"
+      },
+      {
+        "name": "Pear 🍐",
+        "price": 8.75,
+        "quantity": 2,
+        "_id": "6349ccce039261fe32b9b3de"
+      }
+    ]
   }
-  ]
-  }
+  ```
 - Response: - If successful: - Status: `200` - Body: The receipt for the given cart (Type: [Receipt](https://github.com/csc301-fall-2022/assignment-2-36-ashley-d-lu-allenchazhoor/blob/main/server/models/receipt.js)).
   Example:
   ```json { "subtotal": 29.51, "savings": 2.95, "taxDollarAmt": 3.45, "total": 30.01, "_id": "6349ccd7039261fe32b9b3e6" } - If unsuccessful: - Status: `500` - Body: An error message (Type: string).
@@ -100,30 +101,31 @@ This API saves the given cart in the `carts` collection in our MongoDB database.
   Example:
   ```json
   {
-  "\_id": "63446d626e5cc94c406810d6",
-  "discountPercentage": 10,
-  "provinceName": "Ontario",
-  "items": [
-  {
-  "name": "Apple 🍎",
-  "price": 1,
-  "quantity": 1,
-  "_id": "6349ccce039261fe32b9b3dc"
-  },
-  {
-  "name": "Banana 🍌",
-  "price": 3.67,
-  "quantity": 3,
-  "_id": "6349ccce039261fe32b9b3dd"
-  },
-  {
-  "name": "Pear 🍐",
-  "price": 8.75,
-  "quantity": 2,
-  "_id": "6349ccce039261fe32b9b3de"
+    "_id": "63446d626e5cc94c406810d6",
+    "discountPercentage": 10,
+    "provinceName": "Ontario",
+    "items": [
+      {
+        "name": "Apple 🍎",
+        "price": 1,
+        "quantity": 1,
+        "_id": "6349ccce039261fe32b9b3dc"
+      },
+      {
+        "name": "Banana 🍌",
+        "price": 3.67,
+        "quantity": 3,
+        "_id": "6349ccce039261fe32b9b3dd"
+      },
+      {
+        "name": "Pear 🍐",
+        "price": 8.75,
+        "quantity": 2,
+        "_id": "6349ccce039261fe32b9b3de"
+      }
+    ]
   }
-  ]
-  }
+  ```
 - Response:
   - If successful:
     - Status: `200`
