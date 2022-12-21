@@ -16,7 +16,7 @@
 
 ## Deployed App
 
-https://csc301-a2-pair-36.herokuapp.com/
+~~https://csc301-a2-pair-36.herokuapp.com/~~ (Currently down due to the closure of Heroku's free tier)
 
 ## App Features
 
