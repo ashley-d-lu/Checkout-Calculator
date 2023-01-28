@@ -16,7 +16,7 @@
 
 ## Deployed App
 
-https://csc301-a2-pair-36.herokuapp.com/
+https://checkout-calculator-webapp.herokuapp.com/
 
 ## App Features
 
@@ -35,7 +35,7 @@ https://csc301-a2-pair-36.herokuapp.com/
 
 ### Backend REST APIs
 Our backend exposes several REST APIs that can be tested through Postman.
-#### `GET "https://csc301-a2-pair-36.herokuapp.com/api/province/taxes"`
+#### `GET "https://checkout-calculator-webapp.herokuapp.com/api/province/taxes"`
 This API retrieves all provinces and their taxes from the `provinces` collection in our MongoDB database.
 - Request params: None
 - Response:
@@ -65,7 +65,7 @@ Example:
         - Status: `500`
         - Body: An error message (Type: string).
 
-#### `GET "https://csc301-a2-pair-36.herokuapp.com/api/cart"`
+#### `GET "https://checkout-calculator-webapp.herokuapp.com/api/cart"`
 This API retrieves the saved cart from the `carts` collection in our MongoDB database.
 - Request params: None
 - Response:
@@ -110,7 +110,7 @@ Example:
         - Status: `500`
         - Body: An error message (Type: string).
 
-#### `POST "https://csc301-a2-pair-36.herokuapp.com/api/cart/receipt"`
+#### `POST "https://checkout-calculator-webapp.herokuapp.com/api/cart/receipt"`
 This API calculates the receipt for the given cart.
 - Request params: None
 - Request Body:
@@ -158,7 +158,7 @@ Example:
         - Status: `500`
         - Body: An error message (Type: string).
 
-#### `PUT "https://csc301-a2-pair-36.herokuapp.com/api/cart"`
+#### `PUT "https://checkout-calculator-webapp.herokuapp.com/api/cart"`
 This API saves the given cart in the `carts` collection in our MongoDB database.
 - Request params: None
 - Request Body:
